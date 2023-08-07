@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Library</h1>
+    <div class="library-body">
+        <button id="addBookButton">Add Book</button>
+        <br>
+        <br>
+        <div id="library-books">
+        </div>
+    </div>
+    <div class="modalBackdrop hidden"></div>
+    <div id="addBookModal" class="hidden">
+        <form action="post">
+            <div class="inputs">
+                <h2>add new book</h2>
+                <input type="text" id="title" placeholder="Title"> <br>
+                <input type="text" id="author" placeholder="Author"> <br>
+                <input type="number" id="pages" placeholder="Pages"> <br>
+                <div>
+                    <input type="checkbox" id="read">
+                    <label for="read"> I have read</label> 
+                </div> <br>
+                <button id="submitButton">submit</button>
+            </div>
+            
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+
+
+body {
+    background-color:#2f4d65;
+}
+
+h1 {
+    font-size: xxx-large;
+    text-align: center;
+    color: white;
+    text-shadow: #55bbdf;
+}
+
+.library-body {
+    display: flex;
+    flex-direction: column;
+}
+
+button#addBookButton {
+    margin:auto;
+
+    padding-block: 15px;
+    padding-inline: 20px;
+    background-color: #55bbdf;
+
+    font-weight: 700;
+    color: white;
+}
+
+#library-books {
+    display: grid;
+    grid-template-rows: 200px;  
+    grid-template-columns: 300px 300px 300px 300px;
+    grid-auto-rows: 200px;
+    gap: 20px;
+    width: 1260px;
+    margin:auto;
+}
+
+div.book {
+    padding:30px;
+    background-color:#55bbdf;
+    font-size: x-large;
+}
+
+.title {
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.author {
+    margin-bottom: 15px;
+}
+
+#addBookModal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background-color: #fbbb34;
+    
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    padding:30px;
+}
+
+
+#submitButton {
+    padding-block: 10px;
+    
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.modalBackdrop{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    background-color:rgba(0,0,0,0.2);
+}
