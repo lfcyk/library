@@ -13,18 +13,11 @@ function addBookToLibrary(title, author, pages, read) {
 }
 
 addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false)
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false)
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false)
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false)
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false)
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false)
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false)
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false)
+addBookToLibrary("Dune", "Frank Herbert", 896, true)
 
+const container = document.getElementById("library-books")
 
 myLibrary.map((book) => {
-    const container = document.getElementById("library-books")
-
     let card = document.createElement('div');
     card.classList.add("book");
 
@@ -52,10 +45,65 @@ myLibrary.map((book) => {
     container.appendChild(card)
 })
 
+const addBookModal = document.getElementById("addBookModal");
+const modalBackdrop = document.querySelector(".modalBackdrop");
 const addBookButton = document.getElementById("addBookButton");
-addBookButton.addEventListener("click",() => {
-    const addBookModal = document.getElementById("addBookModal");
-    const modalBackdrop = document.querySelector(".modalBackdrop");
+const addBookSubmitButton = document.getElementById("submitButton");
+
+addBookButton.addEventListener("click",() => {   
     addBookModal.classList.remove("hidden");
     modalBackdrop.classList.remove("hidden");
 })
+
+
+modalBackdrop.addEventListener("click", () => {
+	addBookModal.classList.add("hidden");
+    modalBackdrop.classList.add("hidden");
+})
+
+addBookSubmitButton.addEventListener("click", (event) => {
+	let title = document.getElementById("title").value;
+	let author = document.getElementById("author").value;
+	let pages = document.getElementById("pages").value;
+	let read = document.getElementById("read").checked;
+	
+	addBookToLibrary(title, author, pages, read);
+	addCard(title, author, pages, read)
+
+	addBookModal.classList.add("hidden");
+    modalBackdrop.classList.add("hidden");
+	document.getElementById("title").value = "";
+	document.getElementById("author").value = "";
+	document.getElementById("pages").value = "";
+	// document.getElementById("read").value = false;
+
+	event.preventDefault();
+})
+
+function addCard(NewBookTitle, NewBookAuthor, NewBookPages, NewBookRead) {
+    let card = document.createElement('div');
+    card.classList.add("book");
+
+    let title = document.createElement('div');
+    title.classList.add("title");
+    title.textContent = NewBookTitle;
+
+    let author = document.createElement('div');
+    author.classList.add("author");
+    author.textContent = "by " + NewBookAuthor;
+
+    let pages = document.createElement('div');
+    pages.classList.add("pages");
+    pages.textContent = NewBookPages + " pages";
+
+    let read = document.createElement('div');
+    read.classList.add("read");
+    read.textContent = NewBookRead? "read" : "not yet read";
+    
+    card.appendChild(title);
+    card.appendChild(author);
+    card.appendChild(pages);
+    card.appendChild(read);
+    
+    container.appendChild(card)
+}
