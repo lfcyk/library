@@ -1,5 +1,13 @@
 let myLibrary = [];
 
+const container = document.getElementById("library-books")
+const addBookModal = document.getElementById("addBookModal");
+const modalBackdrop = document.querySelector(".modalBackdrop");
+const addBookButton = document.getElementById("addBookButton");
+const addBookSubmitButton = document.getElementById("submitButton");
+const allDeleteButton = document.querySelectorAll("button.deleteButton")
+
+
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
@@ -14,41 +22,54 @@ function addBookToLibrary(title, author, pages, read) {
 
 addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false)
 addBookToLibrary("Dune", "Frank Herbert", 896, true)
+renderCards();
 
-const container = document.getElementById("library-books")
 
-myLibrary.map((book) => {
-    let card = document.createElement('div');
-    card.classList.add("book");
+function renderCards() {
+	myLibrary.map((book) => {
+		let card = document.createElement('div');
+		card.classList.add("book");
+		card.setAttribute('id', "book-" + myLibrary.indexOf(book));
+	
+		let deleteButton = document.createElement('button');
+		deleteButton.classList.add("deleteButton");
+		deleteButton.setAttribute('data-book', myLibrary.indexOf(book))
+		deleteButton.textContent = "✖";
+	
+		let title = document.createElement('div');
+		title.classList.add("title");
+		title.textContent = book.title;
+	
+		let author = document.createElement('div');
+		author.classList.add("author");
+		author.textContent = "by " + book.author;
+	
+		let pages = document.createElement('div');
+		pages.classList.add("pages");
+		pages.textContent = book.pages + " pages";
+	
+		let read = document.createElement('div');
+		read.classList.add("read");
+		read.textContent = book.read ? "read" : "not yet read";
+		
+		card.appendChild(title);
+		card.appendChild(author);
+		card.appendChild(pages);
+		card.appendChild(read);
+		card.appendChild(deleteButton);
+	
+		
+		container.appendChild(card)
+	})
+}
 
-    let title = document.createElement('div');
-    title.classList.add("title");
-    title.textContent = book.title;
+function deleteAllCards() {
+	let cards = document.querySelectorAll(".book");
+	cards.forEach((card) => {
+		container.removeChild(card);
+	})
+}
 
-    let author = document.createElement('div');
-    author.classList.add("author");
-    author.textContent = "by " + book.author;
-
-    let pages = document.createElement('div');
-    pages.classList.add("pages");
-    pages.textContent = book.pages + " pages";
-
-    let read = document.createElement('div');
-    read.classList.add("read");
-    read.textContent = book.read ? "read" : "not yet read";
-    
-    card.appendChild(title);
-    card.appendChild(author);
-    card.appendChild(pages);
-    card.appendChild(read);
-    
-    container.appendChild(card)
-})
-
-const addBookModal = document.getElementById("addBookModal");
-const modalBackdrop = document.querySelector(".modalBackdrop");
-const addBookButton = document.getElementById("addBookButton");
-const addBookSubmitButton = document.getElementById("submitButton");
 
 addBookButton.addEventListener("click",() => {   
     addBookModal.classList.remove("hidden");
@@ -67,43 +88,36 @@ addBookSubmitButton.addEventListener("click", (event) => {
 	let pages = document.getElementById("pages").value;
 	let read = document.getElementById("read").checked;
 	
+	if(!title) {
+		console.log("no title");
+		event.preventDefault();
+		return;
+	}
+
 	addBookToLibrary(title, author, pages, read);
-	addCard(title, author, pages, read)
 
 	addBookModal.classList.add("hidden");
     modalBackdrop.classList.add("hidden");
 	document.getElementById("title").value = "";
 	document.getElementById("author").value = "";
 	document.getElementById("pages").value = "";
-	// document.getElementById("read").value = false;
+	document.getElementById("read").checked = false;
+
+	deleteAllCards();
+	renderCards();
 
 	event.preventDefault();
 })
 
-function addCard(NewBookTitle, NewBookAuthor, NewBookPages, NewBookRead) {
-    let card = document.createElement('div');
-    card.classList.add("book");
+allDeleteButton.forEach((deleteButton) => {
+	deleteButton.addEventListener("click", () => {
+		let deletedBookIndex = deleteButton.getAttribute("data-book");
+		myLibrary.splice( deletedBookIndex, 1);
+		let deletedCard = document.querySelector("#book-" + deletedBookIndex)
+		console.log(deletedBookIndex);
+		container.removeChild(deletedCard);
+	})
+	
+})
 
-    let title = document.createElement('div');
-    title.classList.add("title");
-    title.textContent = NewBookTitle;
 
-    let author = document.createElement('div');
-    author.classList.add("author");
-    author.textContent = "by " + NewBookAuthor;
-
-    let pages = document.createElement('div');
-    pages.classList.add("pages");
-    pages.textContent = NewBookPages + " pages";
-
-    let read = document.createElement('div');
-    read.classList.add("read");
-    read.textContent = NewBookRead? "read" : "not yet read";
-    
-    card.appendChild(title);
-    card.appendChild(author);
-    card.appendChild(pages);
-    card.appendChild(read);
-    
-    container.appendChild(card)
-}

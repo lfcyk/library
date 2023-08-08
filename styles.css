@@ -86,3 +86,12 @@ div.book {
     height:100vh;
     background-color:rgba(0,0,0,0.2);
 }
+
+.deleteButton {
+    position:relative;
+    text-align: end;
+    bottom: 150px;
+    left: 230px;
+    color: red;
+    font-weight: 700;
+}
