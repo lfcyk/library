@@ -5,18 +5,18 @@ const addBookModal = document.getElementById("addBookModal");
 const modalBackdrop = document.querySelector(".modalBackdrop");
 const addBookButton = document.getElementById("addBookButton");
 const addBookSubmitButton = document.getElementById("submitButton");
-const allDeleteButton = document.querySelectorAll("button.deleteButton")
 
 
-function Book(title, author, pages, read) {
+function Book(title, author, pages, read, isDeleted) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
+  this.isDeleted = isDeleted;
 }
 
 function addBookToLibrary(title, author, pages, read) {
-  let newBook = new Book(title, author, pages, read);
+  let newBook = new Book(title, author, pages, read, false);
   myLibrary.push(newBook);
 }
 
@@ -27,39 +27,50 @@ renderCards();
 
 function renderCards() {
 	myLibrary.map((book) => {
-		let card = document.createElement('div');
-		card.classList.add("book");
-		card.setAttribute('id', "book-" + myLibrary.indexOf(book));
-	
-		let deleteButton = document.createElement('button');
-		deleteButton.classList.add("deleteButton");
-		deleteButton.setAttribute('data-book', myLibrary.indexOf(book))
-		deleteButton.textContent = "✖";
-	
-		let title = document.createElement('div');
-		title.classList.add("title");
-		title.textContent = book.title;
-	
-		let author = document.createElement('div');
-		author.classList.add("author");
-		author.textContent = "by " + book.author;
-	
-		let pages = document.createElement('div');
-		pages.classList.add("pages");
-		pages.textContent = book.pages + " pages";
-	
-		let read = document.createElement('div');
-		read.classList.add("read");
-		read.textContent = book.read ? "read" : "not yet read";
+		if(!book.isDeleted) {
+			let card = document.createElement('div');
+			card.classList.add("book");
+			card.setAttribute('id', "book-" + myLibrary.indexOf(book));
 		
-		card.appendChild(title);
-		card.appendChild(author);
-		card.appendChild(pages);
-		card.appendChild(read);
-		card.appendChild(deleteButton);
-	
+			let deleteButton = document.createElement('button');
+			deleteButton.classList.add("deleteButton");
+			deleteButton.setAttribute('data-book', myLibrary.indexOf(book))
+			deleteButton.textContent = "✖";
 		
-		container.appendChild(card)
+			let title = document.createElement('div');
+			title.classList.add("title");
+			title.textContent = book.title;
+		
+			let author = document.createElement('div');
+			author.classList.add("author");
+			author.textContent = "by " + book.author;
+		
+			let pages = document.createElement('div');
+			pages.classList.add("pages");
+			pages.textContent = book.pages + " pages";
+		
+			let read = document.createElement('div');
+			read.classList.add("read");
+			read.textContent = book.read ? "read" : "not yet read";
+			
+			card.appendChild(title);
+			card.appendChild(author);
+			card.appendChild(pages);
+			card.appendChild(read);
+			card.appendChild(deleteButton);
+		
+			
+			container.appendChild(card)
+
+			deleteButton.addEventListener("click", () => {
+				let deletedBookIndex = deleteButton.getAttribute("data-book");
+				myLibrary[deletedBookIndex].isDeleted = true;
+				deleteAllCards();
+				renderCards();
+			})
+		}
+
+		
 	})
 }
 
@@ -109,15 +120,6 @@ addBookSubmitButton.addEventListener("click", (event) => {
 	event.preventDefault();
 })
 
-allDeleteButton.forEach((deleteButton) => {
-	deleteButton.addEventListener("click", () => {
-		let deletedBookIndex = deleteButton.getAttribute("data-book");
-		myLibrary.splice( deletedBookIndex, 1);
-		let deletedCard = document.querySelector("#book-" + deletedBookIndex)
-		console.log(deletedBookIndex);
-		container.removeChild(deletedCard);
-	})
-	
-})
+
 
 
