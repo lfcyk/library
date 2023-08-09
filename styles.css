@@ -37,6 +37,10 @@ button#addBookButton {
     color: white;
 }
 
+button#addBookButton:hover {
+    background-color: var(--sunglow);
+}
+
 #library-books {
     display: grid;
     grid-template-rows: 200px;  
