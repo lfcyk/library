@@ -1,14 +1,24 @@
-
+:root {
+    --san-juan: #2f4d65;
+    --sunglow: #fbbb34;
+    --rose-fog: #e8c6bd;
+    --burnt-sienna: #ef6764;
+    --copper-rust: #8b4944;
+    --viking: #55bbdf;
+    --my-pink: #d3a282;
+    --driftwood: #b28d49;
+    --energy-yellow: #fad454;
+}
 
 body {
-    background-color:#2f4d65;
+    background-color: var(--san-juan);
 }
 
 h1 {
     font-size: xxx-large;
     text-align: center;
     color: white;
-    text-shadow: #55bbdf;
+    text-shadow: var(--viking);
 }
 
 .library-body {
@@ -21,7 +31,7 @@ button#addBookButton {
 
     padding-block: 15px;
     padding-inline: 20px;
-    background-color: #55bbdf;
+    background-color: var(--viking);
 
     font-weight: 700;
     color: white;
@@ -39,7 +49,7 @@ button#addBookButton {
 
 div.book {
     padding:30px;
-    background-color:#55bbdf;
+    background-color: var(--viking);
     font-size: x-large;
 }
 
@@ -58,7 +68,7 @@ div.book {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 300px;
-    background-color: #fbbb34;
+    background-color: var(--sunglow);
     
 }
 
@@ -92,6 +102,6 @@ div.book {
     text-align: end;
     bottom: 150px;
     left: 230px;
-    color: red;
+    color: var(--driftwood);
     font-weight: 700;
 }
