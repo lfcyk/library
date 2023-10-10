@@ -6,14 +6,16 @@ const modalBackdrop = document.querySelector(".modalBackdrop");
 const addBookButton = document.getElementById("addBookButton");
 const addBookSubmitButton = document.getElementById("submitButton");
 
-
-function Book(title, author, pages, read, isDeleted) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.isDeleted = isDeleted;
+class Book {
+	constructor(title, author, pages, read, isDeleted) {
+		this.title = title;
+		this.author = author;
+		this.pages = pages;
+		this.read = read;
+		this.isDeleted = isDeleted;
+	}
 }
+
 
 function addBookToLibrary(title, author, pages, read) {
   let newBook = new Book(title, author, pages, read, false);
